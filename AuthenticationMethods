@@ -1,0 +1,29 @@
+/*
+This logic shall be used to perform authentications from apex.
+*/
+
+public class AuthenticationMethods {
+     
+	public void initVerification() {
+    // Sends push notification to the user's registered Salesforce Authenticator app
+    	String Identifier;
+    	Identifier = UserManagement.initVerificationMethod(Auth.VerificationMethod.SALESFORCE_AUTHENTICATOR);
+        System.Debug('Identifier is'+Identifier);
+	}
+
+    public Auth.VerificationResult verifyVerification(String Identifier) {
+        // Verifies user's response on mobile device
+        Auth.VerificationResult result = UserManagement.verifyVerificationMethod(
+            identifier, 
+            '', 
+            Auth.VerificationMethod.SALESFORCE_AUTHENTICATOR
+        );
+    
+        // Extract and use the verification message
+        String verificationStatus = result.message;
+        System.debug('Verification Status: ' + verificationStatus);
+    
+        return result;
+    }
+
+}
