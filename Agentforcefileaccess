@@ -1,0 +1,21 @@
+Logic – Agentforce Accessing Files and Retrieving Output
+1.	Create a Flow
+o	Choose Autolaunched Flow.
+2.	Get ContentDocumentLink Record
+o	Add a Get Records element on ContentDocumentLink.
+o	Filter with:
+LinkedEntityId Equals {!Record.Id}
+o	This fetches the link between the record and its related files.
+3.	Get ContentDocument Record
+o	Add another Get Records element on ContentDocument.
+o	Filter with:
+Id Equals {!ContentDocumentLink.ContentDocumentId}
+o	This retrieves the file metadata required for further processing.
+4.	Pass to Prompt
+o	Create a Prompt of type Flex that accepts File Object as input.
+o	Use the ContentDocument or a File Snapshot reference and pass it to the Prompt Input.
+________________________________________
+🧠 Sample Prompt (Flex Type with File Input)
+You are responsible to identify the content present in {!$RecordSnapshot:File.Snapshot} and you need to understand the context of the document. Based on the type of document and the content you will be summarizing the data from file and will share it back to user. The summary should contain the information present inside the file. Key data should be reflected in bold. The results should be catchy and this should give an entire view on the document.
+Note: The flow shall be modified if we need data from multiple files. Currently I used a single file.
+Follow me on Linkedln -  https://www.linkedin.com/in/abhishek-r-a00938147/
